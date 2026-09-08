@@ -56,10 +56,19 @@ def GaussElimination(A, b):
         result = np.append(result, A[ri][columns - 1])
     return result
 
+def cos_inter(x):
+    return 0.0029296875 * (x ** 3) - 0.49924468994140625 * (x ** 2) + 0.9999997615814209
+
 A = np.array([[(-0.1) ** 3, (-0.1) ** 2, -0.1, 1], [(-0.02) ** 3, (-0.02) ** 2, -0.02, 1], [0.1 ** 3, 0.1 ** 2, 0.1, 1], [0.02 ** 3, 0.02 ** 2, 0.02, 1]])
 b = np.array([np.cos(-0.1), np.cos(-0.02), np.cos(0.1), np.cos(0.02)])
 
 x = GaussElimination(A, b)
 print(f"GaussElimination(A, b): \n{x}\n")
 print("The cubic polynomial which interpolates f(x) = cos(x):")
-print(f"p(x) = ({x[0]})x^3 + ({x[1]})x^2 + ({x[2]})x + ({x[3]})")
+print(f"p(x) = ({x[0]})x^3 + ({x[1]})x^2 + ({x[2]})x + ({x[3]})\n")
+
+print("Error between f(x) and p(x) at the four x values:")
+print(f"-0.1: {abs(cos_inter(-0.1) - np.cos(-0.1))}")
+print(f"-0.02: {abs(cos_inter(-0.02) - np.cos(-0.02))}")
+print(f"0.1: {abs(cos_inter(0.1) - np.cos(0.1))}")
+print(f"0.02: {abs(cos_inter(0.02) - np.cos(0.02))}")
