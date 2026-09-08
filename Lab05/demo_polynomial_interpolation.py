@@ -1,13 +1,5 @@
 import numpy as np
 
-"""
-look at corner
-if 0, look for non-0 below
-    if none found, go to next column
-if non-0
-    do elementary row ops
-"""
-
 def GaussElimination(A, b):
     A = A.astype(np.float32)
     b = b.astype(np.float32)
