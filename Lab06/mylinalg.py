@@ -76,15 +76,16 @@ if __name__ == "__main__":
     n = 5
     coef = LeastSquareApprox(xgrid, fx, n)
 
-    px = np.array([0])
-    np.append(px, 1)
+    px = np.array([])
     for x in xgrid:
+        # Find value of p(x) at each element in x
         p = 0
         for i in range(n):
             p += coef[i] * (x ** i)
-        np.append(px, p)
-        print(px)
+        px = np.append(px, p)
 
-    plt.plot(xgrid, fx)
-    plt.plot(xgrid, px)
-    plt.savefig("f-and-p")
+    plt.plot(xgrid, fx, label="cos(x)")
+    plt.plot(xgrid, px, label="p(x)")
+    plt.xlabel("x")
+    plt.legend()
+    plt.savefig("fx-and-px-plot")
