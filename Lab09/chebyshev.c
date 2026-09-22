@@ -2,32 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void) {
-    const int Nmax = 5;
-    int N = -1;
-    printf("Provide input N (1 - 5): ");
-    scanf("%d", &N);
-
-    if (N < 0 || N > Nmax) {
-        printf("Error: N must be in range 0 - 5\n");
-        exit(1);
-    }
-
-    double coef[N + 1];
-    for (int i = 0; i <= N; i++) {
-        printf("Set coefficient for x^%d: ", i);
-        scanf("%lf", &coef[i]);
-    }
-
-    const int num_points = 21;
-    double x_values[num_points];
-
+void chebyshev_polynomial(const int N,
+                          const int num_points,
+                          const double coef[],
+                          double x_values[],
+                          double y_values[]) {
     // x values ranging from -1 to 1
     for (int i = 0; i < num_points; i++) {
         x_values[i] = -1 + i * (2.0 / (1.0 * (num_points - 1)));
     }
-
-    double y_values[num_points];
 
     for (int i = 0; i < num_points; i++) {
         const double x = x_values[i];
@@ -55,17 +38,42 @@ int main(void) {
                 printf("\nError\n");
                 exit(1);
         }
+    }
+}
 
-        FILE* output_file;
-        remove("poly.data");
-        fopen("poly.data", "w");
-        fprintf(output_file, "%d\n", num_points);
-        for (int i = 0; i < num_points; i++) {
-            fprintf(output_file, "%lf,%lf\n", x_values[i], y_values[i]);
-        }
+int main(void) {
+    const int Nmax = 5;
+    int N = -1;
+    printf("Provide input N (1 - 5): ");
+    scanf("%d", &N);
 
-        system("python3 plot_poly.py");
-        return 0;
+    if (N < 0 || N > Nmax) {
+        printf("Error: N must be in range 0 - 5\n");
+        exit(1);
     }
 
+    double coef[N + 1];
+    for (int i = 0; i <= N; i++) {
+        printf("Set coefficient for x^%d: ", i);
+        scanf("%lf", &coef[i]);
+    }
+
+    int num_points = 21;
+    double x_values[num_points];
+    double y_values[num_points];
+    chebyshev_polynomial(N, num_points, coef, x_values, y_values);
+
+    FILE* output_file;
+    remove("poly.data");
+    output_file = fopen("poly.data", "w");
+    fprintf(output_file, "%d\n", num_points);
+
+    for (int i = 0; i < num_points; i++) {
+        fprintf(output_file, "%lf,%lf\n", x_values[i], y_values[i]);
+    }
+
+    fclose(output_file);
+
+    system("python3 plot_poly.py");
+    return 0;
 }
