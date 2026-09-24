@@ -11,5 +11,8 @@ with open("poly.data", "r") as data_file:
         x[i] = XnY[0]
         y[i] = XnY[1]
 
-plt.plot(x, y)
-plt.savefig("poly")
+plt.plot(x, y, linestyle="dashed", marker='o', color="red")
+plt.xlabel("x-axis")
+plt.ylabel("y-axis")
+plt.title("Chebyshev Polynomial Plot")
+plt.savefig("chebyshev.png")
