@@ -14,4 +14,8 @@ struct quadrilateral {
 
 void calculate_perimeter(struct quadrilateral* quad);
 
+void calculate_area(struct quadrilateral* quad);
+
+void calculate_angles(struct quadrilateral* quad);
+
 #endif

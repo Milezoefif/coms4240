@@ -16,5 +16,5 @@ void calculate_perimeter(struct quadrilateral* quad) {
 
         perimeter += distance(p1, p2);
     }
-    return perimeter;
+    quad->perimeter = perimeter;
 }
